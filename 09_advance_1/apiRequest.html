@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #121212;">
+    <!-- Description of XMLHttpRequest readyState values -->
+    Value	State	Description
+    0	UNSENT	Client has been created. open() not called yet.
+    1	OPENED	open() has been called.
+    2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
+    3	LOADING	Downloading; responseText holds partial data.
+    4	DONE	The operation is complete.
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // URL of the API endpoint
+        const requesturl = 'https://api.github.com/users/anmoldtuece';
+        
+        // Create a new XMLHttpRequest object
+        const XHR = new XMLHttpRequest();
+        
+        // Initialize a GET request
+        XHR.open('GET', requesturl);
+        
+        // Define a callback function to handle state changes
+        XHR.onreadystatechange = function() {
+            console.log(XHR.readyState); // Log the readyState to the console
+            
+            // Check if the request is complete
+            if (XHR.readyState === 4) {
+                // Parse the JSON response
+                const data = JSON.parse(this.responseText);
+                
+                // Log the number of followers to the console
+                console.log(data.followers);
+            }
+        };
+        
+        // Send the request
+        XHR.send();
+    });
+</script>
+</html>
